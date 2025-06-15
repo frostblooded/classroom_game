@@ -1,17 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://b48evwuamw5xt"]
 
-[ext_resource type="Texture2D" uid="uid://djy22e5xt320x" path="res://assets/ati.png" id="1_xsbqq"]
+[ext_resource type="PackedScene" uid="uid://ol0y63vqvxdk" path="res://scenes/talkable_character.tscn" id="1_xsbqq"]
+[ext_resource type="Texture2D" uid="uid://djy22e5xt320x" path="res://assets/ati.png" id="2_fn4n1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_abqhh"]
-radius = 12.0
+[node name="Ati" instance=ExtResource("1_xsbqq")]
 
-[node name="Ati" type="StaticBody2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-4, -2)
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-2, -4)
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("1_xsbqq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 2)
-shape = SubResource("CircleShape2D_abqhh")
+texture = ExtResource("2_fn4n1")

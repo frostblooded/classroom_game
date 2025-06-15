@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ol0y63vqvxdk"]
+
+[ext_resource type="Texture2D" uid="uid://8xcg2e43l8ad" path="res://icon.svg" id="1_0pamu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_abqhh"]
+radius = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pamu"]
+size = Vector2(50, 50)
+
+[node name="TalkableCharacter" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.38419e-07, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_0pamu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_abqhh")
+
+[node name="TalkableArea2D" type="Area2D" parent="." groups=["talkable_areas"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TalkableArea2D"]
+shape = SubResource("RectangleShape2D_0pamu")
