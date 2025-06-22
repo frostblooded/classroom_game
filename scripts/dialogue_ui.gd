@@ -8,3 +8,6 @@ func _ready() -> void:
 
 func start_dialogue() -> void:
 	_dialogue_panel.show()
+
+func end_dialogue() -> void:
+	_dialogue_panel.hide()
