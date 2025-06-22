@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://obc0is5lhhcw"]
+[gd_scene load_steps=13 format=4 uid="uid://obc0is5lhhcw"]
 
 [ext_resource type="Script" uid="uid://ch4cf2e2us4bi" path="res://scripts/prototype.gd" id="1_20kwy"]
 [ext_resource type="Texture2D" uid="uid://dsk864vkhfrvk" path="res://assets/tilesets/house_tileset.png" id="1_ixygg"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://d14il7b6jkaxx" path="res://scenes/player.tscn" id="4_sdrrl"]
 [ext_resource type="PackedScene" uid="uid://b48evwuamw5xt" path="res://scenes/ati.tscn" id="5_jmxw3"]
 [ext_resource type="PackedScene" uid="uid://fx6ukm7rlml3" path="res://scenes/cookie.tscn" id="6_whm2p"]
+[ext_resource type="Script" uid="uid://bytsvg8unakny" path="res://scripts/dialogue_manager.gd" id="7_whm2p"]
+[ext_resource type="Script" uid="uid://b06ckgsmw8duq" path="res://scripts/dialogue_ui.gd" id="8_tx354"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20kwy"]
 resource_name = "House"
@@ -116,3 +118,37 @@ position = Vector2(219, 57)
 
 [node name="Cookie" parent="." instance=ExtResource("6_whm2p")]
 position = Vector2(530, 194)
+
+[node name="DialogueManager" type="Node" parent="." node_paths=PackedStringArray("_dialogue_ui")]
+script = ExtResource("7_whm2p")
+_dialogue_ui = NodePath("../DialogueUI")
+
+[node name="DialogueUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("_dialogue_panel")]
+script = ExtResource("8_tx354")
+_dialogue_panel = NodePath("DialoguePanel")
+
+[node name="DialoguePanel" type="Panel" parent="DialogueUI"]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueUI/DialoguePanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 20
+
+[node name="Label" type="Label" parent="DialogueUI/DialoguePanel/MarginContainer"]
+layout_mode = 2
+text = "Some text here"

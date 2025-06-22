@@ -15,6 +15,10 @@ func _process(_delta: float) -> void:
 	_process_talkable_search()
 
 func _physics_process(_delta: float) -> void:
+	if !InputManager.can_player_move:
+		velocity = Vector2.ZERO
+		return
+
 	var input: Vector2 = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 	velocity = input * _movement_speed
 	move_and_slide()
@@ -33,4 +37,4 @@ func _process_talkable_search() -> void:
 			_start_dialogue_panel.show()
 
 			if Input.is_action_just_pressed("start_dialogue"):
-				print("Start dialogue with: ", overlapped_talkable_area.get_parent().name)
+				EventBus.dialogue_started.emit()
