@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://obc0is5lhhcw"]
+[gd_scene load_steps=16 format=4 uid="uid://obc0is5lhhcw"]
 
 [ext_resource type="Script" uid="uid://ch4cf2e2us4bi" path="res://scripts/prototype.gd" id="1_20kwy"]
 [ext_resource type="Texture2D" uid="uid://dsk864vkhfrvk" path="res://assets/tilesets/house_tileset.png" id="1_ixygg"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://fx6ukm7rlml3" path="res://scenes/cookie.tscn" id="6_whm2p"]
 [ext_resource type="Script" uid="uid://bytsvg8unakny" path="res://scripts/dialogue_manager.gd" id="7_whm2p"]
 [ext_resource type="Script" uid="uid://b06ckgsmw8duq" path="res://scripts/dialogue_ui.gd" id="8_tx354"]
+[ext_resource type="Script" uid="uid://bf5t72wde2qbw" path="res://scripts/fade_manager.gd" id="9_xw5o4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20kwy"]
 resource_name = "House"
@@ -99,6 +100,12 @@ texture = ExtResource("3_nhfup")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_nhfup")
 
+[sub_resource type="Gradient" id="Gradient_xw5o4"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5w0st"]
+gradient = SubResource("Gradient_xw5o4")
+
 [node name="Prototype" type="Node2D"]
 script = ExtResource("1_20kwy")
 
@@ -152,3 +159,20 @@ theme_override_constants/margin_top = 20
 [node name="Label" type="Label" parent="DialogueUI/DialoguePanel/MarginContainer"]
 layout_mode = 2
 text = "Some text here"
+
+[node name="FadeManager" type="Node" parent="." node_paths=PackedStringArray("_timer", "_fade_ui")]
+script = ExtResource("9_xw5o4")
+_timer = NodePath("Timer")
+_fade_ui = NodePath("FadeUI")
+
+[node name="Timer" type="Timer" parent="FadeManager"]
+one_shot = true
+
+[node name="FadeUI" type="TextureRect" parent="FadeManager"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_5w0st")
