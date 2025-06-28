@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://obc0is5lhhcw"]
+[gd_scene load_steps=19 format=4 uid="uid://obc0is5lhhcw"]
 
 [ext_resource type="Script" uid="uid://ch4cf2e2us4bi" path="res://scripts/prototype.gd" id="1_20kwy"]
 [ext_resource type="Texture2D" uid="uid://dsk864vkhfrvk" path="res://assets/tilesets/house_tileset.png" id="1_ixygg"]
@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://fx6ukm7rlml3" path="res://scenes/cookie.tscn" id="6_whm2p"]
 [ext_resource type="Script" uid="uid://bytsvg8unakny" path="res://scripts/dialogue_manager.gd" id="7_whm2p"]
 [ext_resource type="Script" uid="uid://b06ckgsmw8duq" path="res://scripts/dialogue_ui.gd" id="8_tx354"]
-[ext_resource type="Script" uid="uid://bf5t72wde2qbw" path="res://scripts/fade_manager.gd" id="9_xw5o4"]
+[ext_resource type="Texture2D" uid="uid://dj7di4scrwc12" path="res://assets/dialogue_background.png" id="9_xw5o4"]
+[ext_resource type="Texture2D" uid="uid://djy22e5xt320x" path="res://assets/ati.png" id="10_5w0st"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20kwy"]
 resource_name = "House"
@@ -100,11 +101,85 @@ texture = ExtResource("3_nhfup")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_nhfup")
 
-[sub_resource type="Gradient" id="Gradient_xw5o4"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+[sub_resource type="Animation" id="Animation_5w0st"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5w0st"]
-gradient = SubResource("Gradient_xw5o4")
+[sub_resource type="Animation" id="Animation_v5kwg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hlbek"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v5kwg"]
+_data = {
+&"RESET": SubResource("Animation_v5kwg"),
+&"fade_in": SubResource("Animation_5w0st"),
+&"fade_out": SubResource("Animation_hlbek")
+}
 
 [node name="Prototype" type="Node2D"]
 script = ExtResource("1_20kwy")
@@ -130,49 +205,47 @@ position = Vector2(530, 194)
 script = ExtResource("7_whm2p")
 _dialogue_ui = NodePath("../DialogueUI")
 
-[node name="DialogueUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("_dialogue_panel")]
+[node name="DialogueUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("_animation_player")]
 script = ExtResource("8_tx354")
-_dialogue_panel = NodePath("DialoguePanel")
+_animation_player = NodePath("Background/FadeAnimationPlayer")
 
-[node name="DialoguePanel" type="Panel" parent="DialogueUI"]
-custom_minimum_size = Vector2(200, 0)
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="MarginContainer" type="MarginContainer" parent="DialogueUI/DialoguePanel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
-theme_override_constants/margin_top = 20
-
-[node name="Label" type="Label" parent="DialogueUI/DialoguePanel/MarginContainer"]
-layout_mode = 2
-text = "Some text here"
-
-[node name="FadeManager" type="Node" parent="." node_paths=PackedStringArray("_timer", "_fade_ui")]
-script = ExtResource("9_xw5o4")
-_timer = NodePath("Timer")
-_fade_ui = NodePath("FadeUI")
-
-[node name="Timer" type="Timer" parent="FadeManager"]
-one_shot = true
-
-[node name="FadeUI" type="TextureRect" parent="FadeManager"]
-modulate = Color(1, 1, 1, 0)
+[node name="Background" type="TextureRect" parent="DialogueUI"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_5w0st")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_xw5o4")
+
+[node name="Panel" type="PanelContainer" parent="DialogueUI/Background"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="DialogueUI/Background/Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SpeakerImage" type="TextureRect" parent="DialogueUI/Background/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("10_5w0st")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="DialogueUI/Background/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Hello, how are you today?"
+
+[node name="FadeAnimationPlayer" type="AnimationPlayer" parent="DialogueUI/Background"]
+libraries = {
+&"": SubResource("AnimationLibrary_v5kwg")
+}

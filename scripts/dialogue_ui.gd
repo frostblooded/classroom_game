@@ -1,13 +1,10 @@
 class_name DialogueUI
 extends CanvasLayer
 
-@export var _dialogue_panel: Panel
-
-func _ready() -> void:
-    _dialogue_panel.hide()
+@export var _animation_player: AnimationPlayer
 
 func start_dialogue() -> void:
-    _dialogue_panel.show()
+	_animation_player.play("fade_in")
 
 func end_dialogue() -> void:
-    _dialogue_panel.hide()
+	_animation_player.play("fade_out")
