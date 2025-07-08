@@ -30,7 +30,8 @@ func _input(event: InputEvent) -> void:
     var overlapping_talkable_area: Area2D = _get_overlapping_talkable_area()
 
     if overlapping_talkable_area:
-        EventBus.dialogue_started.emit()
+        var talkable_character: TalkableCharacter = overlapping_talkable_area.get_parent() as TalkableCharacter
+        EventBus.dialogue_started.emit(talkable_character)
         get_viewport().set_input_as_handled()
 
 func _update_dialogue_hint() -> void:

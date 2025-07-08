@@ -16,8 +16,8 @@ func _input(event: InputEvent) -> void:
         _end_dialogue()
         get_viewport().set_input_as_handled()
 
-func _on_dialogue_started() -> void:
-    _dialogue_ui.start_dialogue()
+func _on_dialogue_started(character: TalkableCharacter) -> void:
+    _dialogue_ui.start_dialogue(character)
     dialogue_playing = true
     InputManager.can_player_move = false
 
