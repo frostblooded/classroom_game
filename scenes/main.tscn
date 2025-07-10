@@ -199,10 +199,11 @@ position = Vector2(258, 130)
 script = ExtResource("7_jbj1t")
 _dialogue_ui = NodePath("../DialogueUI")
 
-[node name="DialogueUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("_animation_player", "_speaker_image")]
+[node name="DialogueUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("_animation_player", "_speaker_image", "_current_line_label")]
 script = ExtResource("8_muem4")
 _animation_player = NodePath("Background/FadeAnimationPlayer")
 _speaker_image = NodePath("Background/Panel/VBoxContainer/SpeakerImage")
+_current_line_label = NodePath("Background/Panel/VBoxContainer/CurrentLineLabel")
 
 [node name="Background" type="TextureRect" parent="DialogueUI"]
 visible = false
@@ -236,7 +237,7 @@ layout_mode = 2
 texture = ExtResource("10_0ld40")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="DialogueUI/Background/Panel/VBoxContainer"]
+[node name="CurrentLineLabel" type="Label" parent="DialogueUI/Background/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Hello, how are you today?"
 

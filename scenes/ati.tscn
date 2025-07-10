@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://b48evwuamw5xt"]
+[gd_scene load_steps=4 format=3 uid="uid://b48evwuamw5xt"]
 
 [ext_resource type="PackedScene" uid="uid://ol0y63vqvxdk" path="res://scenes/talkable_character.tscn" id="1_xsbqq"]
 [ext_resource type="Texture2D" uid="uid://djy22e5xt320x" path="res://assets/ati.png" id="2_fn4n1"]
+[ext_resource type="Resource" uid="uid://dau0plgfl7xv5" path="res://resources/dialogues/ati_dialogue.tres" id="2_vf6xo"]
 
 [node name="Ati" instance=ExtResource("1_xsbqq")]
+dialogue_data = ExtResource("2_vf6xo")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-2, -4)

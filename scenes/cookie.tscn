@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://fx6ukm7rlml3"]
+[gd_scene load_steps=4 format=3 uid="uid://fx6ukm7rlml3"]
 
 [ext_resource type="PackedScene" uid="uid://ol0y63vqvxdk" path="res://scenes/talkable_character.tscn" id="1_i5c4t"]
+[ext_resource type="Resource" uid="uid://ba74ysxuev1vf" path="res://resources/dialogues/cookie_dialogue.tres" id="2_yys3m"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i5c4t"]
 load_path = "res://.godot/imported/cookie.png-6abfbe168fa6013f444c82e1c34a1036.ctex"
 
 [node name="Cookie" instance=ExtResource("1_i5c4t")]
+dialogue_data = ExtResource("2_yys3m")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(5.96046e-08, -3)
