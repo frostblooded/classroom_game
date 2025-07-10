@@ -1,8 +1,32 @@
-[gd_resource type="Resource" script_class="Dialogue" load_steps=2 format=3 uid="uid://dau0plgfl7xv5"]
+[gd_resource type="Resource" script_class="DialogueData" load_steps=9 format=3 uid="uid://dau0plgfl7xv5"]
 
-[ext_resource type="Script" uid="uid://x3xeq5rycpor" path="res://scripts/dialogue_data.gd" id="1_gie8x"]
+[ext_resource type="Script" uid="uid://bf2jho462ulsf" path="res://scripts/resources/dialogue/dialogue_element.gd" id="1_awdc2"]
+[ext_resource type="Script" uid="uid://x3xeq5rycpor" path="res://scripts/resources/dialogue/dialogue_data.gd" id="2_gs7s6"]
+[ext_resource type="Script" uid="uid://bo3islmicenc2" path="res://scripts/resources/dialogue/dialogue_text_element.gd" id="2_v01i1"]
+[ext_resource type="Script" uid="uid://dofsbn65wmbe3" path="res://scripts/resources/dialogue/dialogue_choice_element.gd" id="3_cwjuf"]
+
+[sub_resource type="Resource" id="Resource_8w3qn"]
+script = ExtResource("2_v01i1")
+text = "Oh, hi there, Niki!"
+metadata/_custom_type_script = "uid://bo3islmicenc2"
+
+[sub_resource type="Resource" id="Resource_kydxu"]
+script = ExtResource("2_v01i1")
+text = "How was work today?"
+metadata/_custom_type_script = "uid://bo3islmicenc2"
+
+[sub_resource type="Resource" id="Resource_6mp8r"]
+script = ExtResource("2_v01i1")
+text = "Anyways... Let's play! :)"
+metadata/_custom_type_script = "uid://bo3islmicenc2"
+
+[sub_resource type="Resource" id="Resource_qj2nq"]
+script = ExtResource("3_cwjuf")
+text = "Do you want to play with Ati?"
+choices = Array[String](["Sure", "Nah"])
+metadata/_custom_type_script = "uid://dofsbn65wmbe3"
 
 [resource]
-script = ExtResource("1_gie8x")
-lines = Array[String](["Oh, hi there, Niki!", "How was work today?", "Anyways... Let's play! :)"])
+script = ExtResource("2_gs7s6")
+elements = Array[ExtResource("1_awdc2")]([SubResource("Resource_8w3qn"), SubResource("Resource_kydxu"), SubResource("Resource_6mp8r"), SubResource("Resource_qj2nq")])
 metadata/_custom_type_script = "uid://x3xeq5rycpor"

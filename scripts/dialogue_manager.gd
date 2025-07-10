@@ -5,7 +5,7 @@ extends Node
 
 var _dialogue_playing: bool = false
 var _current_dialogue_data: DialogueData
-var _current_dialogue_line_index: int = -1
+var _current_dialogue_element_index: int = -1
 
 func _enter_tree() -> void:
     EventBus.dialogue_started.connect(_on_dialogue_started)
@@ -25,7 +25,7 @@ func _on_dialogue_started(character: TalkableCharacter) -> void:
     _current_dialogue_data = character.dialogue_data
     assert(_current_dialogue_data, "Character has no dialogue data.")
 
-    _current_dialogue_line_index = -1
+    _current_dialogue_element_index = -1
     InputManager.can_player_move = false
 
     _progress_dialogue()
@@ -33,18 +33,18 @@ func _on_dialogue_started(character: TalkableCharacter) -> void:
 func _progress_dialogue() -> void:
     assert(_dialogue_playing, "Trying to progress dialogue when none is playing.")
 
-    var next_line_index: int = _current_dialogue_line_index + 1
-    if next_line_index == _current_dialogue_data.lines.size():
+    var new_element_index: int = _current_dialogue_element_index + 1
+    if new_element_index == _current_dialogue_data.elements.size():
         _end_dialogue()
         return
 
-    _current_dialogue_line_index = next_line_index
-    var line: String = _current_dialogue_data.lines[_current_dialogue_line_index]
-    _dialogue_ui.on_progress_dialogue(line)
+    _current_dialogue_element_index = new_element_index
+    var element: DialogueElement = _current_dialogue_data.elements[_current_dialogue_element_index]
+    _dialogue_ui.on_progress_dialogue(element)
 
 func _end_dialogue() -> void:
     _dialogue_ui.on_end_dialogue()
     _dialogue_playing = false
     _current_dialogue_data = null
-    _current_dialogue_line_index = -1
+    _current_dialogue_element_index = -1
     InputManager.can_player_move = true

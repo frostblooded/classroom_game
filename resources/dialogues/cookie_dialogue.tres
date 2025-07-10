@@ -1,8 +1,20 @@
-[gd_resource type="Resource" script_class="Dialogue" load_steps=2 format=3 uid="uid://ba74ysxuev1vf"]
+[gd_resource type="Resource" script_class="DialogueData" load_steps=6 format=3 uid="uid://ba74ysxuev1vf"]
 
-[ext_resource type="Script" uid="uid://x3xeq5rycpor" path="res://scripts/dialogue_data.gd" id="1_4qr56"]
+[ext_resource type="Script" uid="uid://bf2jho462ulsf" path="res://scripts/resources/dialogue/dialogue_element.gd" id="1_gj3vh"]
+[ext_resource type="Script" uid="uid://bo3islmicenc2" path="res://scripts/resources/dialogue/dialogue_text_element.gd" id="2_pbchd"]
+[ext_resource type="Script" uid="uid://x3xeq5rycpor" path="res://scripts/resources/dialogue/dialogue_data.gd" id="3_ufiow"]
+
+[sub_resource type="Resource" id="Resource_ne63l"]
+script = ExtResource("2_pbchd")
+text = "FOOD!"
+metadata/_custom_type_script = "uid://bo3islmicenc2"
+
+[sub_resource type="Resource" id="Resource_2fol3"]
+script = ExtResource("2_pbchd")
+text = "GIVE ME FOOD! NOW!"
+metadata/_custom_type_script = "uid://bo3islmicenc2"
 
 [resource]
-script = ExtResource("1_4qr56")
-lines = Array[String](["FOOD!!", "I. NEED. FOOD!"])
+script = ExtResource("3_ufiow")
+elements = Array[ExtResource("1_gj3vh")]([SubResource("Resource_ne63l"), SubResource("Resource_2fol3")])
 metadata/_custom_type_script = "uid://x3xeq5rycpor"

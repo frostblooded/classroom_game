@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://obc0is5lhhcw"]
+[gd_scene load_steps=21 format=4 uid="uid://obc0is5lhhcw"]
 
 [ext_resource type="Script" uid="uid://ch4cf2e2us4bi" path="res://scripts/prototype.gd" id="1_choun"]
 [ext_resource type="Texture2D" uid="uid://dsk864vkhfrvk" path="res://assets/tilesets/house_tileset.png" id="2_ya4ey"]
@@ -7,9 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://b48evwuamw5xt" path="res://scenes/ati.tscn" id="5_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://fx6ukm7rlml3" path="res://scenes/cookie.tscn" id="6_jkv2x"]
 [ext_resource type="Script" uid="uid://bytsvg8unakny" path="res://scripts/dialogue_manager.gd" id="7_jbj1t"]
-[ext_resource type="Script" uid="uid://b06ckgsmw8duq" path="res://scripts/dialogue_ui.gd" id="8_muem4"]
+[ext_resource type="Script" uid="uid://b4t3xo16hidbc" path="res://scripts/ui/dialogue_text_container.gd" id="8_eb6dy"]
+[ext_resource type="Script" uid="uid://b06ckgsmw8duq" path="res://scripts/ui/dialogue_ui.gd" id="8_muem4"]
 [ext_resource type="Texture2D" uid="uid://dj7di4scrwc12" path="res://assets/dialogue_background.png" id="9_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://djy22e5xt320x" path="res://assets/ati.png" id="10_0ld40"]
+[ext_resource type="Script" uid="uid://dehh22xg4dbi5" path="res://scripts/ui/dialogue_choice_container.gd" id="10_trceg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_20kwy"]
 resource_name = "House"
@@ -199,11 +201,12 @@ position = Vector2(258, 130)
 script = ExtResource("7_jbj1t")
 _dialogue_ui = NodePath("../DialogueUI")
 
-[node name="DialogueUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("_animation_player", "_speaker_image", "_current_line_label")]
+[node name="DialogueUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("_animation_player", "_dialogue_background", "_dialogue_text_container", "_dialogue_choice_container")]
 script = ExtResource("8_muem4")
 _animation_player = NodePath("Background/FadeAnimationPlayer")
-_speaker_image = NodePath("Background/Panel/VBoxContainer/SpeakerImage")
-_current_line_label = NodePath("Background/Panel/VBoxContainer/CurrentLineLabel")
+_dialogue_background = NodePath("Background")
+_dialogue_text_container = NodePath("Background/Panel/TextContainer")
+_dialogue_choice_container = NodePath("Background/Panel/ChoiceContainer")
 
 [node name="Background" type="TextureRect" parent="DialogueUI"]
 visible = false
@@ -226,20 +229,85 @@ offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="HBoxContainer" parent="DialogueUI/Background/Panel"]
+[node name="TextContainer" type="Control" parent="DialogueUI/Background/Panel" node_paths=PackedStringArray("_text_label", "_speaker_image")]
+visible = false
 layout_mode = 2
+script = ExtResource("8_eb6dy")
+_text_label = NodePath("HBoxContainer/CurrentLineLabel")
+_speaker_image = NodePath("HBoxContainer/SpeakerImage")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogueUI/Background/Panel/TextContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.5
+offset_top = -25.0
+offset_right = 126.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="SpeakerImage" type="TextureRect" parent="DialogueUI/Background/Panel/VBoxContainer"]
+[node name="SpeakerImage" type="TextureRect" parent="DialogueUI/Background/Panel/TextContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("10_0ld40")
 expand_mode = 1
 
-[node name="CurrentLineLabel" type="Label" parent="DialogueUI/Background/Panel/VBoxContainer"]
+[node name="CurrentLineLabel" type="Label" parent="DialogueUI/Background/Panel/TextContainer/HBoxContainer"]
 layout_mode = 2
 text = "Hello, how are you today?"
+
+[node name="ChoiceContainer" type="Control" parent="DialogueUI/Background/Panel" node_paths=PackedStringArray("_choices_container", "_text_label", "_speaker_image")]
+layout_mode = 2
+script = ExtResource("10_trceg")
+_choices_container = NodePath("HBoxContainer/ChoiceLabels")
+_text_label = NodePath("HBoxContainer/CurrentLineLabel")
+_speaker_image = NodePath("HBoxContainer/SpeakerImage")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogueUI/Background/Panel/ChoiceContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.5
+offset_top = -25.0
+offset_right = 126.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SpeakerImage" type="TextureRect" parent="DialogueUI/Background/Panel/ChoiceContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("10_0ld40")
+expand_mode = 1
+
+[node name="CurrentLineLabel" type="Label" parent="DialogueUI/Background/Panel/ChoiceContainer/HBoxContainer"]
+layout_mode = 2
+text = "Hello, how are you today?"
+
+[node name="ChoiceLabels" type="VBoxContainer" parent="DialogueUI/Background/Panel/ChoiceContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DialogueUI/Background/Panel/ChoiceContainer/HBoxContainer/ChoiceLabels"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Yes"
+
+[node name="Label2" type="Label" parent="DialogueUI/Background/Panel/ChoiceContainer/HBoxContainer/ChoiceLabels"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "No"
 
 [node name="FadeAnimationPlayer" type="AnimationPlayer" parent="DialogueUI/Background"]
 libraries = {
