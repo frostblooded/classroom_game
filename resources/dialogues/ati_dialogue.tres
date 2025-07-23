@@ -1,32 +1,33 @@
-[gd_resource type="Resource" script_class="DialogueData" load_steps=9 format=3 uid="uid://dau0plgfl7xv5"]
+[gd_resource type="Resource" script_class="DialogueData" load_steps=7 format=3 uid="uid://dau0plgfl7xv5"]
 
 [ext_resource type="Script" uid="uid://bf2jho462ulsf" path="res://scripts/resources/dialogue/dialogue_element.gd" id="1_awdc2"]
 [ext_resource type="Script" uid="uid://x3xeq5rycpor" path="res://scripts/resources/dialogue/dialogue_data.gd" id="2_gs7s6"]
-[ext_resource type="Script" uid="uid://bo3islmicenc2" path="res://scripts/resources/dialogue/dialogue_text_element.gd" id="2_v01i1"]
-[ext_resource type="Script" uid="uid://dofsbn65wmbe3" path="res://scripts/resources/dialogue/dialogue_choice_element.gd" id="3_cwjuf"]
 
-[sub_resource type="Resource" id="Resource_8w3qn"]
-script = ExtResource("2_v01i1")
+[sub_resource type="Resource" id="Resource_awdc2"]
+script = ExtResource("1_awdc2")
 text = "Oh, hi there, Niki!"
-metadata/_custom_type_script = "uid://bo3islmicenc2"
+choices = Array[String]([])
+metadata/_custom_type_script = "uid://bf2jho462ulsf"
 
-[sub_resource type="Resource" id="Resource_kydxu"]
-script = ExtResource("2_v01i1")
+[sub_resource type="Resource" id="Resource_gs7s6"]
+script = ExtResource("1_awdc2")
 text = "How was work today?"
-metadata/_custom_type_script = "uid://bo3islmicenc2"
+choices = Array[String]([])
+metadata/_custom_type_script = "uid://bf2jho462ulsf"
 
-[sub_resource type="Resource" id="Resource_6mp8r"]
-script = ExtResource("2_v01i1")
+[sub_resource type="Resource" id="Resource_v01i1"]
+script = ExtResource("1_awdc2")
 text = "Anyways... Let's play! :)"
-metadata/_custom_type_script = "uid://bo3islmicenc2"
+choices = Array[String]([])
+metadata/_custom_type_script = "uid://bf2jho462ulsf"
 
-[sub_resource type="Resource" id="Resource_qj2nq"]
-script = ExtResource("3_cwjuf")
+[sub_resource type="Resource" id="Resource_cwjuf"]
+script = ExtResource("1_awdc2")
 text = "Do you want to play with Ati?"
 choices = Array[String](["Sure", "Nah"])
-metadata/_custom_type_script = "uid://dofsbn65wmbe3"
+metadata/_custom_type_script = "uid://bf2jho462ulsf"
 
 [resource]
 script = ExtResource("2_gs7s6")
-elements = Array[ExtResource("1_awdc2")]([SubResource("Resource_8w3qn"), SubResource("Resource_kydxu"), SubResource("Resource_6mp8r"), SubResource("Resource_qj2nq")])
+elements = Array[ExtResource("1_awdc2")]([SubResource("Resource_awdc2"), SubResource("Resource_gs7s6"), SubResource("Resource_v01i1"), SubResource("Resource_cwjuf")])
 metadata/_custom_type_script = "uid://x3xeq5rycpor"

@@ -1,20 +1,21 @@
-[gd_resource type="Resource" script_class="DialogueData" load_steps=6 format=3 uid="uid://ba74ysxuev1vf"]
+[gd_resource type="Resource" script_class="DialogueData" load_steps=5 format=3 uid="uid://ba74ysxuev1vf"]
 
 [ext_resource type="Script" uid="uid://bf2jho462ulsf" path="res://scripts/resources/dialogue/dialogue_element.gd" id="1_gj3vh"]
-[ext_resource type="Script" uid="uid://bo3islmicenc2" path="res://scripts/resources/dialogue/dialogue_text_element.gd" id="2_pbchd"]
 [ext_resource type="Script" uid="uid://x3xeq5rycpor" path="res://scripts/resources/dialogue/dialogue_data.gd" id="3_ufiow"]
 
-[sub_resource type="Resource" id="Resource_ne63l"]
-script = ExtResource("2_pbchd")
+[sub_resource type="Resource" id="Resource_cjjph"]
+script = ExtResource("1_gj3vh")
 text = "FOOD!"
-metadata/_custom_type_script = "uid://bo3islmicenc2"
+choices = Array[String]([])
+metadata/_custom_type_script = "uid://bf2jho462ulsf"
 
-[sub_resource type="Resource" id="Resource_2fol3"]
-script = ExtResource("2_pbchd")
+[sub_resource type="Resource" id="Resource_gj3vh"]
+script = ExtResource("1_gj3vh")
 text = "GIVE ME FOOD! NOW!"
-metadata/_custom_type_script = "uid://bo3islmicenc2"
+choices = Array[String]([])
+metadata/_custom_type_script = "uid://bf2jho462ulsf"
 
 [resource]
 script = ExtResource("3_ufiow")
-elements = Array[ExtResource("1_gj3vh")]([SubResource("Resource_ne63l"), SubResource("Resource_2fol3")])
+elements = Array[ExtResource("1_gj3vh")]([SubResource("Resource_cjjph"), SubResource("Resource_gj3vh")])
 metadata/_custom_type_script = "uid://x3xeq5rycpor"
