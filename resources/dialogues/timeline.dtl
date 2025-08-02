@@ -1,0 +1,5 @@
+[background arg="res://assets/dialogue_background.png" fade="1.0"]
+join Ati left
+join Cookie right [mirrored="true"]
+Ati: Hello
+Cookie: Food time
